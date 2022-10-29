@@ -1,0 +1,17 @@
+library(tidyverse)
+library(ggpubr)
+library(readxl)
+library(ggpmisc)
+install.packages("gplots")
+library(gplots)
+install.packages("dichromat")
+library(dichromat)
+library(reshape2)
+#Enter location of the file
+setwd("F:/")
+df= read_excel("heatmap_value.xlsx")
+df=melt(df)
+pal <- colorRampPalette(c("#186D9E","white","#CF290C"))
+ggplot(df1, aes(x = Cancer_Type,y=Pathways, fill= value))+ geom_tile() +theme_bw()+theme(axis.text.y =element_text(size=12, face = "bold"), axis.text.x =element_text(size=12, face = "bold"),axis.ticks = element_blank())+scale_fill_gradient2(low="#0752B3",mid="white", high="#D90F0F",midpoint=0,limits=c(-1,1))+xlab(" ") + ylab(" ")+ geom_text(aes(label = ifelse(df1$pval>0.05, "x", "")),size = 21 / .pt)+theme(panel.background = element_blank(),panel.grid.major = element_blank(), panel.grid.minor = element_blank())+ggtitle("PDCD1\n")+theme(plot.title = element_text(hjust = 0.5, size = 22, face = "bold"))
+
+ggsave(".filename.pdf", width = 12, height = 8.3, dpi = 2000)
